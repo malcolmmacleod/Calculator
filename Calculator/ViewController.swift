@@ -77,6 +77,12 @@ class ViewController: UIViewController
                 performOperation { $1 / $0 }
             case "√":
                 performUnaryOperation { sqrt($0) }
+            case "sin" :
+                performUnaryOperation { sin(($0 * M_PI) / 180) }
+            case "cos":
+                performUnaryOperation { cos(($0 * M_PI) / 180) }
+            case "pi":
+                performPiOperation()
         default: break
         }
     }
@@ -93,6 +99,11 @@ class ViewController: UIViewController
             displayValue = op(operandStack.removeLast())
             enter()
         }
+    }
+    
+    func performPiOperation() -> Void {
+        displayValue = M_PI
+        enter()
     }
 }
 
