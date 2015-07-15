@@ -53,7 +53,10 @@ class ViewController: UIViewController
         
         switch operation {
             case "×":
-               performOperation(multiply)
+                performOperation({(op1: Double, op2: Double) -> Double in
+                    return op1 * op2
+                }
+)
             
 //            case "-":
 //            case "+":
@@ -67,10 +70,6 @@ class ViewController: UIViewController
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
             enter()
         }
-    }
-    
-    func multiply(op1: Double, op2: Double) -> Double {
-        return op1 * op2
     }
 }
 
