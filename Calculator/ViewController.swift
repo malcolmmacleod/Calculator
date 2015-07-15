@@ -53,7 +53,7 @@ class ViewController: UIViewController
         
         switch operation {
             case "×":
-                performOperation({(op1, op2) in return op1 * op2 })
+                performOperation({ $0 * $1 })
             
 //            case "-":
 //            case "+":
