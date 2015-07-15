@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController
 {
-    @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var display: UILabel! // initialised by UI initialisation, so it is an implicitly unwrapped optional.  It is always automatically unwrapped.  This property is initialised very early and is always set.
     
     var userIsInMiddleOfTypingNumber: Bool = false
 
@@ -24,6 +24,53 @@ class ViewController: UIViewController
         }
 
         println("digit = \(digit)")
+    }
+    
+    var operandStack = Array<Double>()
+    
+    @IBAction func enter() {
+        userIsInMiddleOfTypingNumber = false
+        operandStack.append(displayValue)
+        println("operandStack = \(operandStack)")
+    }
+    
+    var displayValue: Double {
+        get {
+            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+        }
+        set {
+            display.text = "\(newValue)"
+            userIsInMiddleOfTypingNumber = false
+        }
+    }
+    
+    @IBAction func operate(sender: UIButton) {
+        let operation = sender.currentTitle!
+        
+        if userIsInMiddleOfTypingNumber {
+            enter()
+        }
+        
+        switch operation {
+            case "×":
+               performOperation(multiply)
+            
+//            case "-":
+//            case "+":
+//            case "÷":
+        default: break
+        }
+    }
+    
+    func performOperation(operation: (Double, Double) -> Double) {
+        if operandStack.count >= 2 {
+            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
+            enter()
+        }
+    }
+    
+    func multiply(op1: Double, op2: Double) -> Double {
+        return op1 * op2
     }
 }
 
