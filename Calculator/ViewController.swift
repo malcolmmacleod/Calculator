@@ -49,7 +49,7 @@ class ViewController: UIViewController
         userIsInMiddleOfTypingNumber = false
         operandStack.append(displayValue)
         println("operandStack = \(operandStack)")
-        self.history.text = self.history.text! + "," + "\(displayValue)"
+        self.history.text = self.history.text! + " " + "\(displayValue)"
     }
     
     @IBAction func backspace() {
@@ -66,6 +66,7 @@ class ViewController: UIViewController
         userIsInMiddleOfTypingNumber = false
         operandStack.removeAll(keepCapacity: false)
         display.text = "0"
+        history.text = ""
     }
     
     var displayValue: Double {
@@ -85,7 +86,7 @@ class ViewController: UIViewController
             enter()
         }
         
-        self.history.text = self.history.text! + "," + "\(operation)"
+        self.history.text = self.history.text! + " " + "\(operation)="
         
         switch operation {
             case "×":
