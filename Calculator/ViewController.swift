@@ -103,10 +103,29 @@ class ViewController: UIViewController
                 performUnaryOperation { sin(($0 * M_PI) / 180) }
             case "cos":
                 performUnaryOperation { cos(($0 * M_PI) / 180) }
+            case "+/-":
+                performUnaryOperation { self.negate($0) }
             case "pi":
                 performPiOperation()
         default: break
         }
+    }
+    
+    @IBAction func negate(sender: UIButton) {
+        if userIsInMiddleOfTypingNumber {
+            if let found = display.text!.rangeOfString("-") {
+                display.text!.removeRange(found)
+            } else {
+                display.text = "-" + display.text!
+            }
+        } else {
+            operate(sender)
+        }
+    }
+    
+    private func negate (operand: Double) -> Double {
+        let negative = -operand
+        return negative
     }
     
     func performOperation(operation: (Double, Double) -> Double) {
