@@ -47,9 +47,9 @@ class ViewController: UIViewController
     
     @IBAction func enter() {
         userIsInMiddleOfTypingNumber = false
-        operandStack.append(displayValue)
+        operandStack.append(displayValue!)
         println("operandStack = \(operandStack)")
-        self.history.text = self.history.text! + " " + "\(displayValue)"
+        self.history.text = self.history.text! + " " + "\(displayValue!)"
     }
     
     @IBAction func backspace() {
@@ -69,12 +69,16 @@ class ViewController: UIViewController
         history.text = ""
     }
     
-    var displayValue: Double {
+    var displayValue: Double? {
         get {
-            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+            return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
         }
         set {
-            display.text = "\(newValue)"
+            if let aval = newValue {
+                display.text = "\(aval)"
+            } else {
+                display.text = ""
+            }
             userIsInMiddleOfTypingNumber = false
         }
     }
