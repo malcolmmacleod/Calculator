@@ -53,6 +53,13 @@ class ViewController: UIViewController
     }
     
     @IBAction func backspace() {
+        if let current = display.text {
+            if count(current) > 1 {
+                display.text = dropLast(current)
+            } else {
+                display.text = "0"
+            }
+        }
     }
     
     @IBAction func clear() {
