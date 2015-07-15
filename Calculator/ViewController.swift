@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController
 {
     @IBOutlet weak var display: UILabel! // initialised by UI initialisation, so it is an implicitly unwrapped optional.  It is always automatically unwrapped.  This property is initialised very early and is always set.
+
     
     var userIsInMiddleOfTypingNumber: Bool = false
 
@@ -47,6 +48,15 @@ class ViewController: UIViewController
         userIsInMiddleOfTypingNumber = false
         operandStack.append(displayValue)
         println("operandStack = \(operandStack)")
+    }
+    
+    @IBAction func backspace() {
+    }
+    
+    @IBAction func clear() {
+        userIsInMiddleOfTypingNumber = false
+        operandStack.removeAll(keepCapacity: false)
+        display.text = "0"
     }
     
     var displayValue: Double {
