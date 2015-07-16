@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import Calculator
 
 class CalculatorTests: XCTestCase {
     
@@ -21,16 +22,59 @@ class CalculatorTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testAddTwoNumbers () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(2)
+        brain.pushOperand(4)
+        brain.performOperation("+")
+        var result = brain.evaluate()
+        
+        assert(result == 6, "Expected result to equal 6")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+    func testMultiplyTwoNumbers () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(2)
+        brain.pushOperand(4)
+        brain.performOperation("×")
+        var result = brain.evaluate()
+        
+        assert(result == 8, "Expected result to equal 8")
+    }
+    
+    
+    func testSubtractTwoNumbers () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(4)
+        brain.pushOperand(2)
+        brain.performOperation("-")
+        var result = brain.evaluate()
+        
+        assert(result == 2, "Expected result to equal 2")
+    }
+    
+    func testDivideTwoNumbers () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(4)
+        brain.pushOperand(2)
+        brain.performOperation("÷")
+        var result = brain.evaluate()
+        
+        assert(result == 2, "Expected result to equal 2")
+    }
+    
+    func testSqrtOneNumbers () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(4)
+        brain.performOperation("√")
+        var result = brain.evaluate()
+        
+        assert(result == 2, "Expected result to equal 2")
     }
     
 }
