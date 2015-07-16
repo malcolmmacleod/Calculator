@@ -43,13 +43,18 @@ class ViewController: UIViewController
         println("digit = \(digit)")
     }
     
-    var operandStack = Array<Double>()
+    var brain = CalculatorBrain()
     
     @IBAction func enter() {
         userIsInMiddleOfTypingNumber = false
-        operandStack.append(displayValue!)
-        println("operandStack = \(operandStack)")
+
         self.history.text = self.history.text! + " " + "\(displayValue!)"
+        
+        if let result = brain.pushOperand(displayValue!) {
+            displayValue = result
+        } else {
+            displayValue = 0
+        }
     }
     
     @IBAction func backspace() {
@@ -64,7 +69,7 @@ class ViewController: UIViewController
     
     @IBAction func clear() {
         userIsInMiddleOfTypingNumber = false
-        operandStack.removeAll(keepCapacity: false)
+        brain.clear()
         display.text = "0"
         history.text = ""
     }
@@ -90,29 +95,15 @@ class ViewController: UIViewController
             enter()
         }
         
-        self.history.text = self.history.text! + " " + "\(operation)="
-        
-        switch operation {
-            case "×":
-                performOperation { $0 * $1 }
-            case "-":
-                performOperation { $1 - $0 }
-            case "+":
-                performOperation { $0 + $1 }
-            case "÷":
-                performOperation { $1 / $0 }
-            case "√":
-                performUnaryOperation { sqrt($0) }
-            case "sin" :
-                performUnaryOperation { sin(($0 * M_PI) / 180) }
-            case "cos":
-                performUnaryOperation { cos(($0 * M_PI) / 180) }
-            case "+/-":
-                performUnaryOperation { self.negate($0) }
-            case "pi":
-                performPiOperation()
-        default: break
+        if let operation = sender.currentTitle {
+            if let result = brain.performOperation(operation) {
+                displayValue = result
+            } else {
+                displayValue = 0
+            }
         }
+        
+        self.history.text = self.history.text! + " " + "\(operation)="
     }
     
     @IBAction func negate(sender: UIButton) {
@@ -124,25 +115,6 @@ class ViewController: UIViewController
             }
         } else {
             operate(sender)
-        }
-    }
-    
-    private func negate (operand: Double) -> Double {
-        let negative = -operand
-        return negative
-    }
-    
-    func performOperation(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    
-    func performUnaryOperation(op: Double -> Double) {
-        if operandStack.count >= 1 {
-            displayValue = op(operandStack.removeLast())
-            enter()
         }
     }
     
