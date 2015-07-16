@@ -45,6 +45,7 @@ public class CalculatorBrain
         learnOp(Op.UnaryOperation("sin") { sin(($0 * M_PI) / 180) } )
         learnOp(Op.UnaryOperation("cos") { cos(($0 * M_PI) / 180) } )
         learnOp(Op.UnaryOperation("+/-") { self.negate($0) } )
+        learnOp(Op.UnaryOperation("pi") { self.pi($0) } )
     }
     
     public func pushOperand(operand: Double) -> Double? {
@@ -72,6 +73,10 @@ public class CalculatorBrain
     private func negate (operand: Double) -> Double {
         let negative = -operand
         return negative
+    }
+    
+    private func pi (operand: Double) -> Double {
+        return M_PI
     }
     
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]) {  // we are passing an array as a struct - structs passed by value.  This means ops is going to be copied when it is passed in
