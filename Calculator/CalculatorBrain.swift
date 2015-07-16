@@ -11,6 +11,7 @@ import Foundation
 public class CalculatorBrain
 {
     private enum Op : Printable {  // enum can have computed properties and methods
+        case Variable(String)
         case Operand(Double)
         case UnaryOperation(String, Double -> Double)
         case BinaryOperation(String, (Double, Double) -> Double)
@@ -18,6 +19,8 @@ public class CalculatorBrain
         var description: String {
             get {
                 switch self {
+                case .Variable(let variable):
+                    return variable
                 case .Operand(let operand):
                     return "\(operand)"
                 case .UnaryOperation(let symbol, _):
@@ -31,7 +34,9 @@ public class CalculatorBrain
     
     private var opStack = [Op]()  // array of Op
     private var knownOps = [String: Op]()  // dictionary of string and op
-    
+    private var variableValues = [String: Double]()  // dictionary of string and double
+
+
     public init() {
         func learnOp(op: Op) {
             knownOps[op.description] = op
@@ -70,6 +75,11 @@ public class CalculatorBrain
         opStack.removeAll(keepCapacity: false)
     }
     
+    public func pushOperand(symbol: String) -> Double? {
+        opStack.append(Op.Variable(symbol))
+        return evaluate()
+    }
+    
     private func negate (operand: Double) -> Double {
         let negative = -operand
         return negative
@@ -87,6 +97,12 @@ public class CalculatorBrain
             switch(op) {
             case .Operand(let operand):
                 return (operand, remainingOps)
+            case .Variable(let symbol):
+                if let found = variableValues[symbol] {
+                    return (found, remainingOps)
+                } else {
+                    return (nil, remainingOps)
+                }
             case .UnaryOperation(_, let operation):
                 let operandEvaluation = evaluate(remainingOps)
                 if let operand = operandEvaluation.result {
