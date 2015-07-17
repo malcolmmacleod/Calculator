@@ -48,7 +48,7 @@ class ViewController: UIViewController
     @IBAction func enter() {
         userIsInMiddleOfTypingNumber = false
 
-        self.history.text = self.history.text! + " " + "\(displayValue!)"
+        self.history.text = brain.description 
         
         if let result = brain.pushOperand(displayValue!) {
             displayValue = result
@@ -56,6 +56,8 @@ class ViewController: UIViewController
             displayValue = 0
         }
     }
+    
+    
     
     @IBAction func backspace() {
         if let current = display.text {
@@ -88,6 +90,31 @@ class ViewController: UIViewController
         }
     }
     
+    @IBAction func setVariable() {
+        if let value = displayValue {
+            brain.variableValues["M"] = value
+        }
+        userIsInMiddleOfTypingNumber = false
+        
+        if let result = brain.evaluate() {
+            displayValue = result
+        } else {
+            displayValue = nil
+        }
+        
+        history.text = brain.description
+    }
+    
+    @IBAction func getVariable() {
+        if let result = brain.pushOperand("M") {
+            displayValue = result
+        } else {
+            displayValue = nil
+        }
+        
+        history.text = brain.description
+    }
+    
     @IBAction func operate(sender: UIButton) {
         let operation = sender.currentTitle!
         
@@ -103,7 +130,7 @@ class ViewController: UIViewController
             }
         }
         
-        self.history.text = self.history.text! + " " + "\(operation)="
+        self.history.text = brain.description + "="
     }
     
     @IBAction func negate(sender: UIButton) {

@@ -140,4 +140,15 @@ class CalculatorTests: XCTestCase {
         
         // assert(desc == "(3.0+(5.0+4.0))")
     }
+    
+    func testEvaluateVariable () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand("M")
+        brain.variableValues["M"] = 4
+        var res = brain.evaluate()
+        
+        assert(res == 4.0)
+    }
+
 }

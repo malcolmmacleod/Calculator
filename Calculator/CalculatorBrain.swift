@@ -34,7 +34,7 @@ public class CalculatorBrain : Printable
     
     private var opStack = [Op]()  // array of Op
     private var knownOps = [String: Op]()  // dictionary of string and op
-    private var variableValues = [String: Double]()  // dictionary of string and double
+    public var variableValues = [String: Double]()  // dictionary of string and double
 
     private func desc(ops: [Op]) -> (String, [Op]) {
         if !ops.isEmpty {
@@ -57,10 +57,11 @@ public class CalculatorBrain : Printable
                 let res = desc(remainingOps)
                 let op1 = res.0
                 let middle = operation
-                let op2 = desc(res.1).0
+                let nextRemaining = res.1
+                let op2 = desc(nextRemaining).0
                 let end = ")"
                 
-                return (beginning + op2 + middle + op1 + end, res.1)
+                return (beginning + op2 + middle + op1 + end, nextRemaining)
 
             default:
                 return ("?", remainingOps)
