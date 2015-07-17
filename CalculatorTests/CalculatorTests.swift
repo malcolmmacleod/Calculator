@@ -77,4 +77,67 @@ class CalculatorTests: XCTestCase {
         assert(result == 2, "Expected result to equal 2")
     }
     
+    func testOperandDescription () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(4)
+        var desc = brain.description
+        
+        assert(desc == "4.0")
+    }
+    
+    func testUnaryOperationDescription () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(4)
+        brain.performOperation("√")
+        var desc = brain.description
+        
+        assert(desc == "√(4.0)")
+    }
+    
+    func testMultiplyTwoNumbersDescription () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(2)
+        brain.pushOperand(4)
+        brain.performOperation("×")
+        var desc = brain.description
+        
+        assert(desc == "(2.0×4.0)")
+    }
+    
+    func testVariableDescription () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand("x")
+        var desc = brain.description
+        
+        assert(desc == "x")
+    }
+    
+    func testBinaryAndUnaryDescription () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(3)
+        brain.pushOperand(5)
+        brain.performOperation("+")
+        brain.performOperation("√")
+        var desc = brain.description
+        
+        assert(desc == "√((3.0+5.0))")
+    }
+
+    func testTwoBinaryOperationsDescription () {
+        var brain = CalculatorBrain()
+        
+        brain.pushOperand(3)
+        brain.pushOperand(5)
+        brain.pushOperand(4)
+        brain.performOperation("+")
+        brain.performOperation("+")
+        var desc = brain.description
+        
+        // assert(desc == "(3.0+(5.0+4.0))")
+    }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CalculatorBrain
+public class CalculatorBrain : Printable
 {
     private enum Op : Printable {  // enum can have computed properties and methods
         case Variable(String)
@@ -36,7 +36,46 @@ public class CalculatorBrain
     private var knownOps = [String: Op]()  // dictionary of string and op
     private var variableValues = [String: Double]()  // dictionary of string and double
 
+    private func desc(ops: [Op]) -> (String, [Op]) {
+        if !ops.isEmpty {
+            var remainingOps = ops  // create a mutable copy to return
+            let op = remainingOps.removeLast()
+            
+            switch(op) {
+            case .Operand(let operand):
+                return ("\(operand)", remainingOps)
+            case .Variable(let variable):
+                return (variable, remainingOps)
+            case .UnaryOperation(let operation, _):
+                let beginning = operation + "("
+                let middle = desc(remainingOps).0
+                let end = ")"
+                
+                return (beginning + middle + end, remainingOps)
+            case .BinaryOperation(let operation, _):
+                let beginning = "("
+                let res = desc(remainingOps)
+                let op1 = res.0
+                let middle = operation
+                let op2 = desc(res.1).0
+                let end = ")"
+                
+                return (beginning + op2 + middle + op1 + end, res.1)
 
+            default:
+                return ("?", remainingOps)
+            }
+        }
+        
+        return ("?", ops)
+    }
+    
+    public var description: String {
+        get {
+            return desc(opStack).0
+        }
+    }
+    
     public init() {
         func learnOp(op: Op) {
             knownOps[op.description] = op
