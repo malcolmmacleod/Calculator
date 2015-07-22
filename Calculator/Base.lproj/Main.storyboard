@@ -450,6 +450,7 @@
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WiJ-vt-sAO" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
                                         <rect key="frame" x="20" y="20" width="568" height="487"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                 <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -458,6 +459,10 @@
                                                 <real key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="6q5-QO-xWz" appends="YES" id="Q6b-Ab-Snf"/>
+                                            <outletCollection property="gestureRecognizers" destination="16a-mc-snM" appends="YES" id="TB9-da-UXd"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                             </scrollView>
@@ -476,6 +481,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjS-4B-iVI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="6q5-QO-xWz">
+                    <connections>
+                        <action selector="moveGraph:" destination="q6r-Mo-e8n" id="qmw-0M-BID"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="16a-mc-snM">
+                    <connections>
+                        <action selector="moveGraphTo:" destination="q6r-Mo-e8n" id="wUm-mp-4TP"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="251" y="397"/>
         </scene>
