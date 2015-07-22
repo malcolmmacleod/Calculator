@@ -15,6 +15,8 @@ class CalculatorViewController: UIViewController
     @IBOutlet weak var history: UILabel!
     
     var userIsInMiddleOfTypingNumber: Bool = false
+    
+    var operation: String = ""
 
     @IBAction func appendDigit(sender: UIButton) -> Void{
         let digit = sender.currentTitle!
@@ -116,7 +118,7 @@ class CalculatorViewController: UIViewController
     }
     
     @IBAction func operate(sender: UIButton) {
-        let operation = sender.currentTitle!
+        operation = sender.currentTitle!
         
         if userIsInMiddleOfTypingNumber {
             enter()
@@ -148,6 +150,18 @@ class CalculatorViewController: UIViewController
     func performPiOperation() -> Void {
         displayValue = M_PI
         enter()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destinationViewController as? UIViewController
+        
+        if let navCon = destination as? UINavigationController {
+            destination = navCon.visibleViewController
+        }
+        
+        if let gvc = destination as? GraphViewController {
+            gvc.graphTitle = operation
+        }
     }
 }
 

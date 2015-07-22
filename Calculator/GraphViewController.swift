@@ -12,16 +12,13 @@ class GraphViewController: UIViewController {
     
     @IBOutlet weak var graphName: UILabel!
     
-    var graphTitle : String = "Graph title" {
-        didSet {
-            self.graphName.text = self.graphTitle
-        }
-    }
-
+    var graphTitle : String = "Graph title"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.graphName.text = self.graphTitle
     }
 
     override func didReceiveMemoryWarning() {
