@@ -444,38 +444,40 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WiJ-vt-sAO" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
-                                <rect key="frame" x="16" y="93" width="568" height="487"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="scale">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="40b-hj-iss">
+                                <rect key="frame" x="-4" y="73" width="608" height="527"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WiJ-vt-sAO" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="20" width="568" height="487"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scale">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kZw-04-gGP" firstAttribute="leading" secondItem="Ipf-Yf-rTB" secondAttribute="leadingMargin" id="1LB-Sb-nHF"/>
-                            <constraint firstItem="WiJ-vt-sAO" firstAttribute="leading" secondItem="Ipf-Yf-rTB" secondAttribute="leadingMargin" id="L4u-ON-cfT"/>
-                            <constraint firstItem="Wa9-93-aPZ" firstAttribute="top" secondItem="WiJ-vt-sAO" secondAttribute="bottom" constant="20" id="Tc2-t7-MY2"/>
                             <constraint firstItem="kZw-04-gGP" firstAttribute="top" secondItem="dnE-aE-B4m" secondAttribute="bottom" id="Y38-6q-WsE"/>
-                            <constraint firstItem="WiJ-vt-sAO" firstAttribute="top" secondItem="kZw-04-gGP" secondAttribute="bottom" constant="8" id="gOd-OP-aEz"/>
-                            <constraint firstItem="WiJ-vt-sAO" firstAttribute="trailing" secondItem="Ipf-Yf-rTB" secondAttribute="trailingMargin" id="z73-bo-a0A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IVH-UX-b3C"/>
                     <connections>
                         <outlet property="graph" destination="WiJ-vt-sAO" id="Pl9-fg-BWM"/>
                         <outlet property="graphName" destination="kZw-04-gGP" id="Eq2-Pf-q0O"/>
+                        <outlet property="scrollView" destination="40b-hj-iss" id="h0P-sc-I7k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjS-4B-iVI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-41" y="412"/>
+            <point key="canvasLocation" x="251" y="397"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="U44-cG-5y9">

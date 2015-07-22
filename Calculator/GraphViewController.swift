@@ -8,7 +8,17 @@
 
 import UIKit
 
-class GraphViewController: UIViewController {
+class GraphViewController: UIViewController, UIScrollViewDelegate {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+        {
+        didSet {
+            scrollView.contentSize = graph.frame.size
+            scrollView.delegate = self
+            scrollView.minimumZoomScale = 0.2
+            scrollView.maximumZoomScale = 5.0
+        }
+    }
     
     @IBOutlet weak var graphName: UILabel!
     
@@ -26,6 +36,10 @@ class GraphViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return graph
     }
     
 
