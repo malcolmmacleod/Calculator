@@ -12,6 +12,8 @@ class GraphViewController: UIViewController {
     
     @IBOutlet weak var graphName: UILabel!
     
+    @IBOutlet weak var graph: UIView!
+    
     var graphTitle : String = "Graph title"
     
     override func viewDidLoad() {
